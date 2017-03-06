@@ -1,0 +1,19 @@
+apply plugin: "java"
+apply plugin: "scala"
+
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceSets.main.java.srcDirs = [ "src/"]
+
+
+eclipse.project {
+    name = appName + "-core"
+}
+
+dependencies {
+    compile "org.scala-lang:scala-library:2.12.1"
+
+    compile 'junit:junit:4.12'
+    compile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+}
