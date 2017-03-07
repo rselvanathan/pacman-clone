@@ -15,6 +15,5 @@ dependencies {
     compile "org.scala-lang:scala-library:2.12.1"
     compile group: 'org.json4s', name: 'json4s-native_2.12', version: '3.5.0'
 
-    compile 'junit:junit:4.12'
-    compile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+    testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.0.1'
 }

@@ -5,23 +5,23 @@
       "contextName" : "menu",
       "actions" : [
         {
-          "key" : "UP",
+          "key" : 19,
           "action" : "MENU_UP"
         },
         {
-          "key" : "DOWN",
+          "key" : 20,
           "action" : "MENU_DOWN"
         },
         {
-          "key" : "W",
+          "key" : 51,
           "action" : "MENU_UP"
         },
         {
-          "key" : "S",
+          "key" : 47,
           "action" : "MENU_DOWN"
         },
         {
-          "key" : "ENTER",
+          "key" : 66,
           "action" : "SELECT"
         }
       ],
@@ -31,41 +31,41 @@
       "contextName" : "game",
       "actions" : [
         {
-          "key" : "ESCAPE ",
+          "key" : 131,
           "action" : "PAUSE"
         }
       ],
       "states" : [
         {
-          "key" : "UP",
+          "key" : 19,
           "state" : "MOVE_UP"
         },
         {
-          "key" : "DOWN",
+          "key" : 20,
           "state" : "MOVE_DOWN"
         },
         {
-          "key" : "LEFT",
+          "key" : 21,
           "state" : "MOVE_LEFT"
         },
         {
-          "key" : "RIGHT",
+          "key" : 22,
           "state" : "MOVE_RIGHT"
         },
         {
-          "key" : "W",
+          "key" : 51,
           "state" : "MOVE_UP"
         },
         {
-          "key" : "S",
+          "key" : 47,
           "state" : "MOVE_DOWN"
         },
         {
-          "key" : "A",
+          "key" : 29,
           "state" : "MOVE_LEFT"
         },
         {
-          "key" : "D",
+          "key" : 32,
           "state" : "MOVE_RIGHT"
         }
       ]

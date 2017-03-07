@@ -1,15 +1,13 @@
 package com.romeshselvan.pacman.input
 
-import com.badlogic.gdx.Input.Keys
-
 /**
   * @author Romesh Selvan
   */
-class InputContext(contextName : String,
-                   keyToActionMap : Map[Keys, Action],
-                   keyToStateMap : Map[Keys, State]) {
+case class InputContext(contextName : String,
+                   keyToActionMap : Map[Int, Action],
+                   keyToStateMap : Map[Int, State]) {
 
-  def getAction(keys: Keys) : Option[Action] = keyToActionMap.get(keys)
+  def getAction(keys: Int) : Option[Action] = keyToActionMap.get(keys)
 
-  def getState(keys: Keys) : Option[State] = keyToStateMap.get(keys)
+  def getState(keys: Int) : Option[State] = keyToStateMap.get(keys)
 }

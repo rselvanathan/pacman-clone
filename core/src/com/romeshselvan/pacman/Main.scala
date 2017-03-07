@@ -15,6 +15,7 @@ class Main extends ApplicationAdapter {
   override def create() {
     val spriteBatch = new SpriteBatch
     screenManager = new ScreenManager(new GameScreen(spriteBatch, new GameWorld(GameObjectProduce)))
+    //loader.loadInputContexts(Source.fromInputStream(Gdx.files.internal("input.json").read()).mkString)
   }
 
   override def render() {
