@@ -10,9 +10,13 @@ import scala.collection.mutable.ListBuffer
 /**
   * @author Romesh Selvan
   */
-class InputContextLoader {
+trait InputContextLoader {
+  def loadInputContexts(rawJson : String) : Seq[InputContext]
+}
 
-  def loadInputContexts(rawJson : String) : List[InputContext] = {
+object InputContextLoader extends InputContextLoader {
+
+  def loadInputContexts(rawJson : String) : Seq[InputContext] = {
     val json = parse(rawJson)
     val contextJson : JArray = (json \ "contexts").asInstanceOf[JArray]
     val tempListBuffer = new ListBuffer[InputContext]
