@@ -1,69 +1,74 @@
 {
-  "menu" : {
-    "actions" : [
-      {
-        "key" : "UP",
-        "action" : "MENU_UP"
-      },
-      {
-        "key" : "DOWN",
-        "action" : "MENU_DOWN"
-      },
-      {
-        "key" : "W",
-        "action" : "MENU_UP"
-      },
-      {
-        "key" : "S",
-        "action" : "MENU_DOWN"
-      },
-      {
-        "key" : "ENTER",
-        "action" : "SELECT"
-      }
-    ],
-    "states" : []
-  },
-  "game" : {
-    "actions" : [
-      {
-        "key" : "ESCAPE ",
-        "action" : "PAUSE"
-      }
-    ],
-    "states" : [
-      {
-        "key" : "UP",
-        "state" : "MOVE_UP"
-      },
-      {
-        "key" : "DOWN",
-        "state" : "MOVE_DOWN"
-      },
-      {
-        "key" : "LEFT",
-        "state" : "MOVE_LEFT"
-      },
-      {
-        "key" : "RIGHT",
-        "state" : "MOVE_RIGHT"
-      },
-      {
-        "key" : "W",
-        "state" : "MOVE_UP"
-      },
-      {
-        "key" : "S",
-        "state" : "MOVE_DOWN"
-      },
-      {
-        "key" : "A",
-        "state" : "MOVE_LEFT"
-      },
-      {
-        "key" : "D",
-        "state" : "MOVE_RIGHT"
-      }
-    ]
-  }
+  "contexts" :
+  [
+    {
+      "contextName" : "menu",
+      "actions" : [
+        {
+          "key" : "UP",
+          "action" : "MENU_UP"
+        },
+        {
+          "key" : "DOWN",
+          "action" : "MENU_DOWN"
+        },
+        {
+          "key" : "W",
+          "action" : "MENU_UP"
+        },
+        {
+          "key" : "S",
+          "action" : "MENU_DOWN"
+        },
+        {
+          "key" : "ENTER",
+          "action" : "SELECT"
+        }
+      ],
+      "states" : []
+    },
+    {
+      "contextName" : "game",
+      "actions" : [
+        {
+          "key" : "ESCAPE ",
+          "action" : "PAUSE"
+        }
+      ],
+      "states" : [
+        {
+          "key" : "UP",
+          "state" : "MOVE_UP"
+        },
+        {
+          "key" : "DOWN",
+          "state" : "MOVE_DOWN"
+        },
+        {
+          "key" : "LEFT",
+          "state" : "MOVE_LEFT"
+        },
+        {
+          "key" : "RIGHT",
+          "state" : "MOVE_RIGHT"
+        },
+        {
+          "key" : "W",
+          "state" : "MOVE_UP"
+        },
+        {
+          "key" : "S",
+          "state" : "MOVE_DOWN"
+        },
+        {
+          "key" : "A",
+          "state" : "MOVE_LEFT"
+        },
+        {
+          "key" : "D",
+          "state" : "MOVE_RIGHT"
+        }
+      ]
+    }
+  ]
 }
