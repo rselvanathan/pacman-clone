@@ -7,8 +7,6 @@ import com.badlogic.gdx.InputProcessor
   */
 class InputHandler(contextManager: InputContextManager) extends InputProcessor {
 
-
-
   override def keyTyped(character: Char): Boolean = ???
 
   override def mouseMoved(screenX: Int, screenY: Int): Boolean = ???
