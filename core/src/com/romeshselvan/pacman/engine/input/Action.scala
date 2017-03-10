@@ -1,4 +1,4 @@
-package com.romeshselvan.pacman.input
+package com.romeshselvan.pacman.engine.input
 
 /**
   * @author Romesh Selvan

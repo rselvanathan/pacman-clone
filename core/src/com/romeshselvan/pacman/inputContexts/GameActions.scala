@@ -1,6 +1,6 @@
 package com.romeshselvan.pacman.inputContexts
 
-import com.romeshselvan.pacman.input.Action
+import com.romeshselvan.pacman.engine.input.Action
 
 /**
   * @author Romesh Selvan

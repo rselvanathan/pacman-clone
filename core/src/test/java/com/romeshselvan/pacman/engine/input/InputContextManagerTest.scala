@@ -1,4 +1,4 @@
-package com.romeshselvan.pacman.input
+package com.romeshselvan.pacman.engine.input
 
 import org.scalatest.{FlatSpec, Matchers}
 

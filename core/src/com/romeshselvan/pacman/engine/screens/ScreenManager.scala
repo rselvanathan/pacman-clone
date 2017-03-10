@@ -1,4 +1,4 @@
-package com.romeshselvan.pacman.screens
+package com.romeshselvan.pacman.engine.screens
 
 import com.badlogic.gdx.Screen
 

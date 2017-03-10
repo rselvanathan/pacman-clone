@@ -1,8 +1,8 @@
-package com.romeshselvan.pacman.input
+package com.romeshselvan.pacman.engine.input
 
-import org.json4s.{JInt, JString}
 import org.json4s.JsonAST.JArray
 import org.json4s.native.JsonMethods._
+import org.json4s.{JInt, JString}
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer

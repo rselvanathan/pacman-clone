@@ -1,4 +1,4 @@
-package com.romeshselvan.pacman.events
+package com.romeshselvan.pacman.engine.eventManager
 
 import scala.collection.mutable
 

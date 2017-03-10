@@ -16,4 +16,7 @@ dependencies {
     compile group: 'org.json4s', name: 'json4s-native_2.12', version: '3.5.0'
 
     testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.0.1'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+
+
 }

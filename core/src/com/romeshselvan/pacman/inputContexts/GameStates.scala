@@ -1,6 +1,6 @@
 package com.romeshselvan.pacman.inputContexts
 
-import com.romeshselvan.pacman.input.State
+import com.romeshselvan.pacman.engine.input.State
 
 /**
   * @author Romesh Selvan

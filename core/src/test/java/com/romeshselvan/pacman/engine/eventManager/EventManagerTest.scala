@@ -1,5 +1,6 @@
-package com.romeshselvan.pacman.events
+package com.romeshselvan.pacman.engine.eventManager
 
+import com.romeshselvan.pacman.engine.eventManager.{Event, EventManager}
 import org.scalatest.{FlatSpec, Matchers}
 
 /**
