@@ -2,12 +2,18 @@ package com.romeshselvan.pacman.engine.input
 
 import com.badlogic.gdx.InputProcessor
 import com.romeshselvan.pacman.engine.eventManager.EventManager
-import com.romeshselvan.pacman.engine.input.events.{InputStateListener, StatePressedEvent, StateReleasedEvent}
+import com.romeshselvan.pacman.engine.input.events.{ContextChangedEvent, StatePressedEvent, StateReleasedEvent}
+import com.romeshselvan.pacman.engine.input.listeners.{ContextChangeListener, InputStateListener}
 
 /**
   * @author Romesh Selvan
   */
-class InputHandler(contextManager: InputContextManager, eventManager: EventManager) extends InputProcessor {
+class InputHandler(contextManager: InputContextManager,
+                   eventManager: EventManager) extends InputProcessor with ContextChangeListener {
+
+  eventManager.addListener[ContextChangeListener](this, classOf[ContextChangedEvent])
+
+  // ------------------------------------ Input Processor ---------------------------------------------------
 
   override def keyTyped(character: Char): Boolean = true
 
@@ -32,4 +38,8 @@ class InputHandler(contextManager: InputContextManager, eventManager: EventManag
   override def touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean = true
 
   override def touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean = true
+
+  // -------------------------------  Context Changed Listener -------------------------------------------------
+
+  override def onContextChanged(contextName: String): Unit = contextManager.changeContext(contextName)
 }

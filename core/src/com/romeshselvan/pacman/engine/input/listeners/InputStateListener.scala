@@ -1,4 +1,4 @@
-package com.romeshselvan.pacman.engine.input.events
+package com.romeshselvan.pacman.engine.input.listeners
 
 import com.romeshselvan.pacman.engine.input.State
 

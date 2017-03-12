@@ -1,7 +1,8 @@
 package com.romeshselvan.pacman.engine.input
 
 import com.romeshselvan.pacman.engine.eventManager.EventManager
-import com.romeshselvan.pacman.engine.input.events.{InputStateListener, StatePressedEvent, StateReleasedEvent}
+import com.romeshselvan.pacman.engine.input.events.{StatePressedEvent, StateReleasedEvent}
+import com.romeshselvan.pacman.engine.input.listeners.InputStateListener
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}

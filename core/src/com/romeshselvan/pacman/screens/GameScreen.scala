@@ -4,13 +4,18 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.{Gdx, Screen}
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.romeshselvan.pacman.GameWorld
+import com.romeshselvan.pacman.engine.eventManager.EventManager
+import com.romeshselvan.pacman.engine.input.events.ContextChangedEvent
+import com.romeshselvan.pacman.engine.input.listeners.ContextChangeListener
 
 /**
   * @author Romesh Selvan
   */
 class GameScreen(spriteBatch: SpriteBatch,
-                 gameWorld: GameWorld) extends Screen {
+                 gameWorld: GameWorld,
+                 eventManager: EventManager) extends Screen {
 
+  eventManager.notifyListeners[ContextChangeListener](new ContextChangedEvent("game"))
   gameWorld.init
 
   override def dispose(): Unit = {
