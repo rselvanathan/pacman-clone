@@ -12,24 +12,34 @@ import com.romeshselvan.pacman.inputContexts.GameStates
   */
 class Pacman(body : Body, sprite : Sprite) extends Entity(body , sprite) with InputStateListener {
 
-  override def render(batch: Batch) = {
+  private val additiveVelocity : Vector2 = new Vector2(0, 0)
+
+  override def render(batch: Batch): Unit = {
     batch.begin()
     sprite.setPosition(body.getPosition.x, body.getPosition.y)
     sprite.draw(batch)
     batch.end()
   }
 
-  override def update(delta: Float) = {}
+  override def update(delta: Float): Unit = {
+  }
 
   override def onStatePressed(state: State): Unit = {
-    if(state.stateId == GameStates.MOVE_UP.stateId) body.setLinearVelocity(new Vector2(0.0f, 5.0f))
-    if(state.stateId == GameStates.MOVE_DOWN.stateId) body.setLinearVelocity(new Vector2(0.0f, -5.0f))
-    if(state.stateId == GameStates.MOVE_LEFT.stateId) body.setLinearVelocity(new Vector2(-5.0f, 0.0f))
-    if(state.stateId == GameStates.MOVE_RIGHT.stateId) body.setLinearVelocity(new Vector2(5.0f, 0.0f))
+    if(state.stateId == GameStates.MOVE_UP.stateId) additiveVelocity.y += 5.0f
+    if(state.stateId == GameStates.MOVE_DOWN.stateId) additiveVelocity.y += -5.0f
+    if(state.stateId == GameStates.MOVE_LEFT.stateId) additiveVelocity.x += -5.0f
+    if(state.stateId == GameStates.MOVE_RIGHT.stateId) additiveVelocity.x += 5.0f
+    setVelocity()
   }
 
   override def onStateReleased(state: State): Unit = {
-    body.setLinearVelocity(new Vector2(0.0f, 0.0f))
+    if(state.stateId == GameStates.MOVE_UP.stateId) additiveVelocity.y += -5.0f
+    if(state.stateId == GameStates.MOVE_DOWN.stateId) additiveVelocity.y += 5.0f
+    if(state.stateId == GameStates.MOVE_LEFT.stateId) additiveVelocity.x += 5.0f
+    if(state.stateId == GameStates.MOVE_RIGHT.stateId) additiveVelocity.x += -5.0f
+    setVelocity()
   }
+
+  private def setVelocity() = body.setLinearVelocity(additiveVelocity)
 }
 
