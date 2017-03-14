@@ -16,7 +16,7 @@ class Pacman(body : Body, sprite : Sprite) extends Entity(body , sprite) with In
 
   override def render(batch: Batch): Unit = {
     batch.begin()
-    sprite.setPosition(body.getPosition.x, body.getPosition.y)
+    sprite.setPosition(body.getPosition.x+sprite.getWidth*2, body.getPosition.y+sprite.getHeight)
     sprite.draw(batch)
     batch.end()
   }

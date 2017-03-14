@@ -22,15 +22,15 @@ object GameObjectProduce extends GameObjectProducer{
     val bodyDef = new BodyDef
     bodyDef.`type` = BodyDef.BodyType.KinematicBody
     val sprite = new Sprite(new Texture("badlogic.jpg"))
-    bodyDef.position.set(0, 0)
+    bodyDef.position.set(0-sprite.getWidth*2, 0-sprite.getHeight)
     val body = world.createBody(bodyDef)
 
     val polygonShape = new PolygonShape()
-    polygonShape.setAsBox(sprite.getWidth, sprite.getHeight)
+    polygonShape.setAsBox(sprite.getWidth/2, sprite.getHeight/2)
 
     val fixtureDef = new FixtureDef
     fixtureDef.shape = polygonShape
-    fixtureDef.density = 0.1f
+    fixtureDef.density = 0.0f
     fixtureDef.restitution = 0.1f
 
     body.createFixture(fixtureDef)

@@ -1,9 +1,10 @@
 package com.romeshselvan.pacman
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.physics.box2d.World
-import com.romeshselvan.pacman.engine.eventManager.EventManager
+import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
 import com.romeshselvan.pacman.entities.Entity
 import com.romeshselvan.pacman.producers.GameObjectProducer
 
@@ -17,6 +18,9 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
   private val entityList : ListBuffer[Entity] = new ListBuffer
   private val world = new World(new Vector2(0.0f, 0.0f), false)
 
+  private val debugRenderer = new Box2DDebugRenderer()
+  private val debugCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+
   def init = {
     val pacman = gameObjectProducer.makePacman(world)
     entityList += pacman
@@ -27,7 +31,10 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
     world.step(1f/60f, 6, 2)
   }
 
-  def render(batch : Batch) = entityList.foreach(_.render(batch))
+  def render(batch : Batch) = {
+    entityList.foreach(_.render(batch))
+    debugRenderer.render(world, debugCamera.combined)
+  }
 
   def dispose = entityList.foreach(_.dispose)
 }
