@@ -25,18 +25,22 @@ class Pacman(body : Body, sprite : Sprite) extends Entity(body , sprite) with In
   }
 
   override def onStatePressed(state: State): Unit = {
-    if(state.stateId == GameStates.MOVE_UP.stateId) additiveVelocity.y += 5.0f
-    if(state.stateId == GameStates.MOVE_DOWN.stateId) additiveVelocity.y += -5.0f
-    if(state.stateId == GameStates.MOVE_LEFT.stateId) additiveVelocity.x += -5.0f
-    if(state.stateId == GameStates.MOVE_RIGHT.stateId) additiveVelocity.x += 5.0f
+    state match {
+      case GameStates.MOVE_UP => additiveVelocity.y += 5.0f
+      case GameStates.MOVE_DOWN => additiveVelocity.y += -5.0f
+      case GameStates.MOVE_LEFT => additiveVelocity.x += -5.0f
+      case GameStates.MOVE_RIGHT => additiveVelocity.x += 5.0f
+    }
     setVelocity()
   }
 
   override def onStateReleased(state: State): Unit = {
-    if(state.stateId == GameStates.MOVE_UP.stateId) additiveVelocity.y += -5.0f
-    if(state.stateId == GameStates.MOVE_DOWN.stateId) additiveVelocity.y += 5.0f
-    if(state.stateId == GameStates.MOVE_LEFT.stateId) additiveVelocity.x += 5.0f
-    if(state.stateId == GameStates.MOVE_RIGHT.stateId) additiveVelocity.x += -5.0f
+    state match {
+      case GameStates.MOVE_UP => additiveVelocity.y += -5.0f
+      case GameStates.MOVE_DOWN => additiveVelocity.y += 5.0f
+      case GameStates.MOVE_LEFT => additiveVelocity.x += 5.0f
+      case GameStates.MOVE_RIGHT => additiveVelocity.x += -5.0f
+    }
     setVelocity()
   }
 
