@@ -1,15 +1,17 @@
 package com.romeshselvan.pacman.entities
 
-import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
-import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.graphics.g2d.Batch
+import com.romeshselvan.pacman.entities.bodies.EntityBody
+import com.romeshselvan.pacman.entities.sprites.SpriteObject
 
 /**
   * @author Romesh Selvan
   */
-abstract class Entity(val body: Body,
-                      val sprite: Sprite) {
+abstract class Entity(val body: EntityBody,
+                      val sprite: SpriteObject,
+                      val spriteMath: SpriteMath) {
 
-  def dispose = sprite.getTexture.dispose()
+  def dispose = sprite.dispose()
 
   def render(batch : Batch)
 
