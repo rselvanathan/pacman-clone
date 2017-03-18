@@ -9,8 +9,8 @@ import com.romeshselvan.pacman.entities.sprites.PacmanSprite
   */
 class PacmanEntity(body : PacmanBody, sprite : PacmanSprite) extends Entity(body , sprite, SpriteMath) {
 
-  override def render(batch: Batch): Unit = {
-    sprite.render(batch, spriteMath.getSpritePositionX(body.body, sprite.sprite), spriteMath.getSpritePositionY(body.body, sprite.sprite))
+  override def render(delta: Float, batch: Batch): Unit = {
+    sprite.render(delta, batch, spriteMath.getSpritePositionX(body.body, sprite.sprite), spriteMath.getSpritePositionY(body.body, sprite.sprite))
   }
 
   override def update(delta: Float): Unit = {

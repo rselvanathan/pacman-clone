@@ -13,7 +13,7 @@ abstract class Entity(val body: EntityBody,
 
   def dispose = sprite.dispose()
 
-  def render(batch : Batch)
+  def render(delta: Float, batch : Batch)
 
   def update(delta : Float)
 }

@@ -27,7 +27,7 @@ class GameScreen(spriteBatch: SpriteBatch,
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     gameWorld.update(delta)
-    gameWorld.render(spriteBatch)
+    gameWorld.render(delta, spriteBatch)
   }
 
   override def pause(): Unit = ???

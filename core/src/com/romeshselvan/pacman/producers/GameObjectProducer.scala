@@ -26,7 +26,7 @@ object GameObjectProduce extends GameObjectProducer{
     bodyDef.position.set(0, 0)
     val body = world.createBody(bodyDef)
 
-    val sprite = new Sprite(CharacterTextures.upFacing)
+    val sprite = new Sprite(CharacterTextures.upFacingSet.items(0))
 
     val polygonShape = new PolygonShape()
     polygonShape.setAsBox(sprite.getWidth/2, sprite.getHeight/2)

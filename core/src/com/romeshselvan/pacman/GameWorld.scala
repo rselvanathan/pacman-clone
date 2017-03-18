@@ -31,8 +31,8 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
     world.step(1f/60f, 6, 2)
   }
 
-  def render(batch : Batch) = {
-    entityList.foreach(_.render(batch))
+  def render(delta: Float, batch : Batch) = {
+    entityList.foreach(_.render(delta, batch))
     debugRenderer.render(world, debugCamera.combined)
   }
 
