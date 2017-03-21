@@ -5,8 +5,8 @@ import com.badlogic.gdx.physics.box2d.{BodyDef, FixtureDef, PolygonShape, World}
 import com.romeshselvan.pacman.engine.eventManager.EventManager
 import com.romeshselvan.pacman.engine.input.events.{StatePressedEvent, StateReleasedEvent}
 import com.romeshselvan.pacman.engine.input.listeners.InputStateListener
-import com.romeshselvan.pacman.entities.PacmanEntity
-import com.romeshselvan.pacman.entities.bodies.PacmanBody
+import com.romeshselvan.pacman.entities.{PacmanEntity, WallEntity}
+import com.romeshselvan.pacman.entities.bodies.{PacmanBody, WallBody}
 import com.romeshselvan.pacman.entities.sprites.PacmanSprite
 import com.romeshselvan.pacman.textures.CharacterTextures
 
@@ -16,13 +16,14 @@ import com.romeshselvan.pacman.textures.CharacterTextures
 
 trait GameObjectProducer {
   def makePacman(world: World) : PacmanEntity
+  def makeWall(world: World) : WallEntity
 }
 
 object GameObjectProduce extends GameObjectProducer{
 
   def makePacman(world: World): PacmanEntity = {
     val bodyDef = new BodyDef
-    bodyDef.`type` = BodyDef.BodyType.KinematicBody
+    bodyDef.`type` = BodyDef.BodyType.DynamicBody
     bodyDef.position.set(0, 0)
     val body = world.createBody(bodyDef)
 
@@ -33,7 +34,7 @@ object GameObjectProduce extends GameObjectProducer{
 
     val fixtureDef = new FixtureDef
     fixtureDef.shape = polygonShape
-    fixtureDef.density = 0.0f
+    fixtureDef.density = 1.0f
     fixtureDef.restitution = 0.1f
 
     body.createFixture(fixtureDef)
@@ -46,6 +47,27 @@ object GameObjectProduce extends GameObjectProducer{
     EventManager.addListener[InputStateListener](pacmanSprite, classOf[StatePressedEvent])
     EventManager.addListener[InputStateListener](pacmanSprite, classOf[StateReleasedEvent])
 
+    world.setContactListener(pacmanBody)
+
     new PacmanEntity(pacmanBody, pacmanSprite)
+  }
+
+  def makeWall(world: World): WallEntity = {
+    val bodyDef = new BodyDef
+    bodyDef.`type` = BodyDef.BodyType.StaticBody
+    bodyDef.position.set(0, 100)
+    val body = world.createBody(bodyDef)
+
+    val shape = new PolygonShape
+    shape.setAsBox(100, 10)
+
+    val fixtureDef = new FixtureDef
+    fixtureDef.shape = shape
+    fixtureDef.density = 1.0f
+
+    body.createFixture(fixtureDef)
+    shape.dispose()
+
+    new WallEntity(new WallBody(body), null)
   }
 }
