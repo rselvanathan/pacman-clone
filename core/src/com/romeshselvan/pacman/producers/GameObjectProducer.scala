@@ -19,7 +19,7 @@ trait GameObjectProducer {
   def makeWall(world: World) : WallEntity
 }
 
-object GameObjectProduce extends GameObjectProducer{
+object GameObjectProducer extends GameObjectProducer{
 
   def makePacman(world: World): PacmanEntity = {
     val bodyDef = new BodyDef
@@ -46,8 +46,6 @@ object GameObjectProduce extends GameObjectProducer{
     EventManager.addListener[InputStateListener](pacmanBody, classOf[StateReleasedEvent])
     EventManager.addListener[InputStateListener](pacmanSprite, classOf[StatePressedEvent])
     EventManager.addListener[InputStateListener](pacmanSprite, classOf[StateReleasedEvent])
-
-    world.setContactListener(pacmanBody)
 
     new PacmanEntity(pacmanBody, pacmanSprite)
   }

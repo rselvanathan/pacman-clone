@@ -5,7 +5,7 @@ import com.badlogic.gdx.{ApplicationAdapter, Gdx}
 import com.romeshselvan.pacman.engine.eventManager.EventManager
 import com.romeshselvan.pacman.engine.input.{InputContextLoader, InputContextManager, InputHandler}
 import com.romeshselvan.pacman.engine.screens.ScreenManager
-import com.romeshselvan.pacman.producers.GameObjectProduce
+import com.romeshselvan.pacman.producers.GameObjectProducer
 import com.romeshselvan.pacman.screens.GameScreen
 
 import scala.io.Source
@@ -26,7 +26,7 @@ class Main extends ApplicationAdapter {
     Gdx.input.setInputProcessor(inputHandler)
 
     val spriteBatch = new SpriteBatch
-    screenManager = new ScreenManager(new GameScreen(spriteBatch, new GameWorld(GameObjectProduce), EventManager))
+    screenManager = new ScreenManager(new GameScreen(spriteBatch, new GameWorld(GameObjectProducer), EventManager))
   }
 
   override def render() {

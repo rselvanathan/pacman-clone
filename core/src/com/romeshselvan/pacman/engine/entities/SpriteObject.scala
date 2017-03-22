@@ -1,4 +1,4 @@
-package com.romeshselvan.pacman.entities.sprites
+package com.romeshselvan.pacman.engine.entities
 
 import com.badlogic.gdx.graphics.g2d.Batch
 

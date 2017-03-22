@@ -1,6 +1,7 @@
 package com.romeshselvan.pacman.entities
 
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.romeshselvan.pacman.engine.entities.{Entity, SpriteMath}
 import com.romeshselvan.pacman.entities.bodies.PacmanBody
 import com.romeshselvan.pacman.entities.sprites.PacmanSprite
 

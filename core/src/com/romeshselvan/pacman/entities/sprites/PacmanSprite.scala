@@ -1,6 +1,7 @@
 package com.romeshselvan.pacman.entities.sprites
 
 import com.badlogic.gdx.graphics.g2d.{Animation, Batch, Sprite, TextureRegion}
+import com.romeshselvan.pacman.engine.entities.SpriteObject
 import com.romeshselvan.pacman.engine.input.State
 import com.romeshselvan.pacman.engine.input.listeners.InputStateListener
 import com.romeshselvan.pacman.inputContexts.GameStates

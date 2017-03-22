@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d._
-import com.romeshselvan.pacman.entities.Entity
+import com.romeshselvan.pacman.engine.collision.CollisionHandler
+import com.romeshselvan.pacman.engine.entities.Entity
 import com.romeshselvan.pacman.producers.GameObjectProducer
 
 import scala.collection.mutable.ListBuffer
@@ -24,6 +25,8 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
   def init = {
     entityList += gameObjectProducer.makePacman(world)
     entityList += gameObjectProducer.makeWall(world)
+
+    world.setContactListener(CollisionHandler)
   }
 
   def update(delta:Float) = {

@@ -1,8 +1,6 @@
-package com.romeshselvan.pacman.entities
+package com.romeshselvan.pacman.engine.entities
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.romeshselvan.pacman.entities.bodies.EntityBody
-import com.romeshselvan.pacman.entities.sprites.SpriteObject
 
 /**
   * @author Romesh Selvan
