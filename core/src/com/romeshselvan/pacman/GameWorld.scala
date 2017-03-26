@@ -18,25 +18,27 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
 
   private val entityList : ListBuffer[Entity] = new ListBuffer
   private val world = new World(new Vector2(0.0f, 0.0f), false)
+  private val camera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
 
   private val debugRenderer = new Box2DDebugRenderer()
-  private val debugCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
 
   def init = {
-    entityList += gameObjectProducer.makePacman(world)
+    entityList += gameObjectProducer.makePacman(world, camera)
     entityList += gameObjectProducer.makeWall(world)
 
     world.setContactListener(CollisionHandler)
   }
 
   def update(delta:Float) = {
-    entityList.foreach(_.update(delta))
     world.step(1f/60f, 6, 2)
+    entityList.foreach(_.update(delta))
+    camera.update()
   }
 
   def render(delta: Float, batch : Batch) = {
+    batch.setProjectionMatrix(camera.combined)
     entityList.foreach(_.render(delta, batch))
-    debugRenderer.render(world, debugCamera.combined)
+    debugRenderer.render(world, camera.combined)
   }
 
   def dispose = entityList.foreach(_.dispose)

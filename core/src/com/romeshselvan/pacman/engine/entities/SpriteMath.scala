@@ -13,6 +13,6 @@ trait SpriteMath {
 }
 
 object SpriteMath extends SpriteMath{
-  override def getSpritePositionX(body: Body, sprite: Sprite): Float = (body.getPosition.x + Gdx.graphics.getWidth/2)-sprite.getWidth/2
-  override def getSpritePositionY(body: Body, sprite: Sprite): Float = (body.getPosition.y + Gdx.graphics.getHeight/2)-sprite.getHeight/2
+  override def getSpritePositionX(body: Body, sprite: Sprite): Float = body.getPosition.x-sprite.getWidth/2
+  override def getSpritePositionY(body: Body, sprite: Sprite): Float = body.getPosition.y -sprite.getHeight/2
 }

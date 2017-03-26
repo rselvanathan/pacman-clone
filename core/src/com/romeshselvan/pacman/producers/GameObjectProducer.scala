@@ -1,5 +1,6 @@
 package com.romeshselvan.pacman.producers
 
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.physics.box2d.{BodyDef, FixtureDef, PolygonShape, World}
 import com.romeshselvan.pacman.engine.eventManager.EventManager
@@ -15,13 +16,13 @@ import com.romeshselvan.pacman.textures.CharacterTextures
   */
 
 trait GameObjectProducer {
-  def makePacman(world: World) : PacmanEntity
+  def makePacman(world: World, camera : OrthographicCamera) : PacmanEntity
   def makeWall(world: World) : WallEntity
 }
 
 object GameObjectProducer extends GameObjectProducer{
 
-  def makePacman(world: World): PacmanEntity = {
+  def makePacman(world: World, camera : OrthographicCamera): PacmanEntity = {
     val bodyDef = new BodyDef
     bodyDef.`type` = BodyDef.BodyType.DynamicBody
     bodyDef.position.set(0, 0)
@@ -40,7 +41,7 @@ object GameObjectProducer extends GameObjectProducer{
     body.createFixture(fixtureDef)
     polygonShape.dispose()
 
-    val pacmanBody = new PacmanBody(body)
+    val pacmanBody = new PacmanBody(body, camera)
     val pacmanSprite = new PacmanSprite(sprite)
     EventManager.addListener[InputStateListener](pacmanBody, classOf[StatePressedEvent])
     EventManager.addListener[InputStateListener](pacmanBody, classOf[StateReleasedEvent])

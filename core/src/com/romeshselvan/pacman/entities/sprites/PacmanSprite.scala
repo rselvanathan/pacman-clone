@@ -7,8 +7,6 @@ import com.romeshselvan.pacman.engine.input.listeners.InputStateListener
 import com.romeshselvan.pacman.inputContexts.GameStates
 import com.romeshselvan.pacman.textures.CharacterTextures
 
-import collection.JavaConverters._
-
 /**
   * @author Romesh Selvan
   */
