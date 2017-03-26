@@ -33,7 +33,7 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
     tileMap = new TmxMapLoader().load("example-tileset.tmx")
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap)
 
-    gameObjectProducer.loadWalls(world, tileMap).foreach(entityList += _)
+    gameObjectProducer.loadWalls(world, tileMap)
 
     world.setContactListener(CollisionHandler)
   }

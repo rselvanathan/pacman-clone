@@ -7,12 +7,10 @@ import com.badlogic.gdx.physics.box2d.{BodyDef, FixtureDef, PolygonShape, World}
 import com.romeshselvan.pacman.engine.eventManager.EventManager
 import com.romeshselvan.pacman.engine.input.events.{StatePressedEvent, StateReleasedEvent}
 import com.romeshselvan.pacman.engine.input.listeners.InputStateListener
-import com.romeshselvan.pacman.entities.{PacmanEntity, WallEntity}
 import com.romeshselvan.pacman.entities.bodies.{PacmanBody, WallBody}
 import com.romeshselvan.pacman.entities.sprites.PacmanSprite
+import com.romeshselvan.pacman.entities.{PacmanEntity, WallEntity}
 import com.romeshselvan.pacman.textures.CharacterTextures
-
-import scala.collection.mutable.ListBuffer
 
 /**
   * @author Romesh Selvan
@@ -22,7 +20,7 @@ trait GameObjectProducer {
   def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera) : PacmanEntity
   def makeWall(world: World, xPos: Float, yPos: Float, width: Float, height: Float) : WallEntity
 
-  def loadWalls(world: World, tiledMap: TiledMap) : List[WallEntity]
+  def loadWalls(world: World, tiledMap: TiledMap) : Unit
 }
 
 object GameObjectProducer extends GameObjectProducer{
@@ -76,15 +74,13 @@ object GameObjectProducer extends GameObjectProducer{
     new WallEntity(new WallBody(body), null)
   }
 
-  override def loadWalls(world: World, tiledMap: TiledMap): List[WallEntity] = {
-    var entityList : ListBuffer[WallEntity] = new ListBuffer[WallEntity]
+  override def loadWalls(world: World, tiledMap: TiledMap): Unit = {
     tiledMap.getLayers.get("CollisionWallsObjects").getObjects.forEach(ob => {
       val x = ob.getProperties.get("x", classOf[Float])
       val y = ob.getProperties.get("y", classOf[Float])
       val width = ob.getProperties.get("width", classOf[Float]) / 2
       val height = ob.getProperties.get("height", classOf[Float]) / 2
-      entityList+= makeWall(world, x + width, y + height, width, height)
+      makeWall(world, x + width, y + height, width, height)
     })
-    entityList.toList
   }
 }

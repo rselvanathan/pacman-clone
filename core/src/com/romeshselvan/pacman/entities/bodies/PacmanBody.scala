@@ -6,12 +6,13 @@ import com.badlogic.gdx.physics.box2d._
 import com.romeshselvan.pacman.engine.entities.EntityBody
 import com.romeshselvan.pacman.engine.input.State
 import com.romeshselvan.pacman.engine.input.listeners.InputStateListener
+import com.romeshselvan.pacman.entities.EntityTypes
 import com.romeshselvan.pacman.inputContexts.GameStates
 
 /**
   * @author Romesh Selvan
   */
-class PacmanBody(body: Body, camera: OrthographicCamera) extends EntityBody(body, "player") with InputStateListener {
+class PacmanBody(body: Body, camera: OrthographicCamera) extends EntityBody(body, EntityTypes.PLAYER) with InputStateListener {
 
   private val additiveVelocity : Vector2 = new Vector2(0, 0)
   private val bodySpeed = 40.0f
@@ -43,14 +44,14 @@ class PacmanBody(body: Body, camera: OrthographicCamera) extends EntityBody(body
 
 
   override def onCollision(otherBody: Body): Unit = {
-    if(otherBody.getUserData.asInstanceOf[EntityBody].hashCode() == "wall".hashCode) {
-      println("Collision")
+    if(otherBody.getUserData.asInstanceOf[EntityBody].bodyType == EntityTypes.WALL) {
+      println("Collision with Wall")
     }
   }
 
   override def onCollisionEnd(otherBody: Body): Unit = {
-    if(otherBody.getUserData.asInstanceOf[EntityBody].hashCode() == "wall".hashCode) {
-      println("Collision Done")
+    if(otherBody.getUserData.asInstanceOf[EntityBody].bodyType == EntityTypes.WALL) {
+      println("Collision with Wall Done")
     }
   }
 }
