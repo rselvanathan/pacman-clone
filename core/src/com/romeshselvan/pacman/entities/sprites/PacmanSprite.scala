@@ -10,7 +10,7 @@ import com.romeshselvan.pacman.textures.CharacterTextures
 /**
   * @author Romesh Selvan
   */
-class PacmanSprite(val sprite : Sprite) extends SpriteObject with InputStateListener {
+class PacmanSprite(val sprite : Sprite) extends SpriteObject(sprite) with InputStateListener {
 
   private var animateFrameTime = 0.2f
 
@@ -36,10 +36,6 @@ class PacmanSprite(val sprite : Sprite) extends SpriteObject with InputStateList
     sprite.setPosition(xPosition, yPosition)
     sprite.draw(batch)
     batch.end()
-  }
-
-  override def dispose(): Unit = {
-    sprite.getTexture.dispose()
   }
 
   override def onStatePressed(state: State): Unit = {

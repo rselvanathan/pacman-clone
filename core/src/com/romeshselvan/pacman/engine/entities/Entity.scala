@@ -9,7 +9,7 @@ abstract class Entity(val body: EntityBody,
                       val sprite: SpriteObject,
                       val spriteMath: SpriteMath) {
 
-  def dispose = sprite.dispose()
+  def dispose = if(sprite != null) sprite.dispose()
 
   def render(delta: Float, batch : Batch)
 

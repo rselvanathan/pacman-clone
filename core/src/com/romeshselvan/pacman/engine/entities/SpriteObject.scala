@@ -1,11 +1,12 @@
 package com.romeshselvan.pacman.engine.entities
 
-import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
 
 /**
   * @author Romesh Selvan
   */
-trait SpriteObject {
+abstract class SpriteObject(sprite : Sprite) {
   def render(delta: Float, batch: Batch, xPositon : Float, yPosition : Float): Unit
-  def dispose(): Unit
+
+  def dispose(): Unit = sprite.getTexture.dispose()
 }
