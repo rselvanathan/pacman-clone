@@ -35,7 +35,7 @@ object GameObjectProducer extends GameObjectProducer{
     val sprite = new Sprite(CharacterTextures.upFacingSet.items(0))
 
     val polygonShape = new PolygonShape()
-    polygonShape.setAsBox(sprite.getWidth/4, sprite.getHeight/2)
+    polygonShape.setAsBox(sprite.getWidth/3, sprite.getHeight/2)
 
     val fixtureDef = new FixtureDef
     fixtureDef.shape = polygonShape
@@ -75,12 +75,15 @@ object GameObjectProducer extends GameObjectProducer{
   }
 
   override def loadWalls(world: World, tiledMap: TiledMap): Unit = {
-    tiledMap.getLayers.get("CollisionWallsObjects").getObjects.forEach(ob => {
-      val x = ob.getProperties.get("x", classOf[Float])
-      val y = ob.getProperties.get("y", classOf[Float])
-      val width = ob.getProperties.get("width", classOf[Float]) / 2
-      val height = ob.getProperties.get("height", classOf[Float]) / 2
-      makeWall(world, x + width, y + height, width, height)
+    tiledMap.getLayers.get("CollisionObjects").getObjects.forEach(ob => {
+      if(ob.getProperties.get("type", classOf[String]) == "wall")
+      {
+        val x = ob.getProperties.get("x", classOf[Float])
+        val y = ob.getProperties.get("y", classOf[Float])
+        val width = ob.getProperties.get("width", classOf[Float]) / 2
+        val height = ob.getProperties.get("height", classOf[Float]) / 2
+        makeWall(world, x + width, y + height, width, height)
+      }
     })
   }
 }

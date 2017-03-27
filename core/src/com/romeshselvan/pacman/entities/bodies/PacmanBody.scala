@@ -15,7 +15,7 @@ import com.romeshselvan.pacman.inputContexts.GameStates
 class PacmanBody(body: Body, camera: OrthographicCamera) extends EntityBody(body, EntityTypes.PLAYER) with InputStateListener {
 
   private val additiveVelocity : Vector2 = new Vector2(0, 0)
-  private val bodySpeed = 40.0f
+  private val bodySpeed = 120.0f
 
   override def update(delta: Float): Unit = {
     setVelocity()

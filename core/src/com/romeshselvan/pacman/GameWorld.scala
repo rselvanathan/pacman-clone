@@ -20,7 +20,7 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
 
   private val entityList : ListBuffer[Entity] = new ListBuffer
   private val world = new World(new Vector2(0.0f, 0.0f), false)
-  private val camera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+  private val camera = new OrthographicCamera(Gdx.graphics.getWidth/1.5f, Gdx.graphics.getHeight/1.5f)
 
   private var tileMap: TiledMap = _
   private var tiledMapRenderer : OrthogonalTiledMapRenderer = _
@@ -28,12 +28,17 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
   private val debugRenderer = new Box2DDebugRenderer()
 
   def init(): Unit = {
-    entityList += gameObjectProducer.makePacman(world, 100, 100, camera)
-
-    tileMap = new TmxMapLoader().load("example-tileset.tmx")
+    tileMap = new TmxMapLoader().load("level1.tmx")
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap)
 
     gameObjectProducer.loadWalls(world, tileMap)
+
+    val mapObject = tileMap.getLayers.get("ObjectPositions").getObjects.get("start")
+
+    entityList += gameObjectProducer.makePacman(world,
+      mapObject.getProperties.get("x", classOf[Float]),
+      mapObject.getProperties.get("y", classOf[Float]),
+      camera)
 
     world.setContactListener(CollisionHandler)
   }
@@ -52,7 +57,7 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
 
     entityList.foreach(_.render(delta, batch))
 
-    debugRenderer.render(world, camera.combined)
+    //debugRenderer.render(world, camera.combined)
   }
 
   def dispose(): Unit = {
