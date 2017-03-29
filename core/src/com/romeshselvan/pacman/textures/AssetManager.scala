@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.Texture
 object AssetManager {
 
   val characterSheet : Texture = new Texture("death_scythe.png")
+  val knightSheet : Texture = new Texture("darkknight_v1.png")
 
   def dispose(): Unit = {
     characterSheet.dispose()
+    knightSheet.dispose()
   }
 }

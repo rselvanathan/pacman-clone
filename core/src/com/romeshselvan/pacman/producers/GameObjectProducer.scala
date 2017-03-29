@@ -1,5 +1,6 @@
 package com.romeshselvan.pacman.producers
 
+import box2dLight.PointLight
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.maps.tiled.TiledMap
@@ -17,7 +18,7 @@ import com.romeshselvan.pacman.textures.CharacterTextures
   */
 
 trait GameObjectProducer {
-  def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera) : PacmanEntity
+  def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera, light : PointLight) : PacmanEntity
   def makeWall(world: World, xPos: Float, yPos: Float, width: Float, height: Float) : WallEntity
 
   def loadWalls(world: World, tiledMap: TiledMap) : Unit
@@ -25,7 +26,7 @@ trait GameObjectProducer {
 
 object GameObjectProducer extends GameObjectProducer{
 
-  def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera): PacmanEntity = {
+  def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera, light : PointLight): PacmanEntity = {
     val bodyDef = new BodyDef
     bodyDef.`type` = BodyDef.BodyType.DynamicBody
     bodyDef.position.set(xPos, yPos)
@@ -45,7 +46,7 @@ object GameObjectProducer extends GameObjectProducer{
     body.createFixture(fixtureDef)
     polygonShape.dispose()
 
-    val pacmanBody = new PacmanBody(body, camera)
+    val pacmanBody = new PacmanBody(body, camera, light)
     val pacmanSprite = new PacmanSprite(sprite)
     EventManager.addListener[InputStateListener](pacmanBody, classOf[StatePressedEvent])
     EventManager.addListener[InputStateListener](pacmanBody, classOf[StateReleasedEvent])
