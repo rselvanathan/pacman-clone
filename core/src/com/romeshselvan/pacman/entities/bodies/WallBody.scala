@@ -8,6 +8,7 @@ import com.romeshselvan.pacman.entities.EntityTypes
   * @author Romesh Selvan
   */
 class WallBody(body : Body) extends EntityBody(body, EntityTypes.WALL) {
+
   override def update(delta: Float): Unit = {}
 
   override def onCollision(otherBody: Body): Unit = {

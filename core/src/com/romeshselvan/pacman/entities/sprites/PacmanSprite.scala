@@ -10,7 +10,7 @@ import com.romeshselvan.pacman.textures.CharacterTextures
 /**
   * @author Romesh Selvan
   */
-class PacmanSprite(val sprite : Sprite) extends SpriteObject(sprite) with InputStateListener {
+class PacmanSprite(sprite : Sprite) extends SpriteObject(sprite) with InputStateListener {
 
   private var animateFrameTime = 0.2f
 

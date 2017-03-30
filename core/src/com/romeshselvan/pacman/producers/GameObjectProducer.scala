@@ -1,24 +1,25 @@
 package com.romeshselvan.pacman.producers
 
-import box2dLight.PointLight
-import com.badlogic.gdx.graphics.OrthographicCamera
+import box2dLight.{ConeLight, RayHandler}
+import com.badlogic.gdx.graphics.{Color, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.{BodyDef, FixtureDef, PolygonShape, World}
 import com.romeshselvan.pacman.engine.eventManager.EventManager
 import com.romeshselvan.pacman.engine.input.events.{StatePressedEvent, StateReleasedEvent}
 import com.romeshselvan.pacman.engine.input.listeners.InputStateListener
-import com.romeshselvan.pacman.entities.bodies.{PacmanBody, WallBody}
-import com.romeshselvan.pacman.entities.sprites.PacmanSprite
-import com.romeshselvan.pacman.entities.{PacmanEntity, WallEntity}
-import com.romeshselvan.pacman.textures.CharacterTextures
+import com.romeshselvan.pacman.entities.bodies.{KnightBody, PacmanBody, WallBody}
+import com.romeshselvan.pacman.entities.sprites.{KnightSprite, PacmanSprite}
+import com.romeshselvan.pacman.entities.{KnightEntity, PacmanEntity, WallEntity}
+import com.romeshselvan.pacman.textures.{CharacterTextures, KnightTextures}
 
 /**
   * @author Romesh Selvan
   */
 
 trait GameObjectProducer {
-  def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera, light : PointLight) : PacmanEntity
+  def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera) : PacmanEntity
+  def makeKnight(world: World, xPos: Float, yPos: Float, rayHandler: RayHandler) : KnightEntity
   def makeWall(world: World, xPos: Float, yPos: Float, width: Float, height: Float) : WallEntity
 
   def loadWalls(world: World, tiledMap: TiledMap) : Unit
@@ -26,7 +27,7 @@ trait GameObjectProducer {
 
 object GameObjectProducer extends GameObjectProducer{
 
-  def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera, light : PointLight): PacmanEntity = {
+  def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera): PacmanEntity = {
     val bodyDef = new BodyDef
     bodyDef.`type` = BodyDef.BodyType.DynamicBody
     bodyDef.position.set(xPos, yPos)
@@ -46,7 +47,7 @@ object GameObjectProducer extends GameObjectProducer{
     body.createFixture(fixtureDef)
     polygonShape.dispose()
 
-    val pacmanBody = new PacmanBody(body, camera, light)
+    val pacmanBody = new PacmanBody(body, camera)
     val pacmanSprite = new PacmanSprite(sprite)
     EventManager.addListener[InputStateListener](pacmanBody, classOf[StatePressedEvent])
     EventManager.addListener[InputStateListener](pacmanBody, classOf[StateReleasedEvent])
@@ -54,6 +55,33 @@ object GameObjectProducer extends GameObjectProducer{
     EventManager.addListener[InputStateListener](pacmanSprite, classOf[StateReleasedEvent])
 
     new PacmanEntity(pacmanBody, pacmanSprite)
+  }
+
+  def makeKnight(world: World, xPos: Float, yPos: Float, rayHandler: RayHandler) = {
+    val bodyDef = new BodyDef
+    bodyDef.`type` = BodyDef.BodyType.DynamicBody
+    bodyDef.position.set(xPos, yPos)
+    bodyDef.fixedRotation = true
+    val body = world.createBody(bodyDef)
+
+    val sprite = new Sprite(KnightTextures.upFacingSet.items(0))
+
+    val polygonShape = new PolygonShape()
+    polygonShape.setAsBox(sprite.getWidth/3, sprite.getHeight/2)
+
+    val fixtureDef = new FixtureDef
+    fixtureDef.shape = polygonShape
+    fixtureDef.density = 1.0f
+    fixtureDef.restitution = 0.0f
+
+    body.createFixture(fixtureDef)
+    polygonShape.dispose()
+
+    val coneLight = new ConeLight(rayHandler, 100, Color.RED, 250, xPos, yPos, 90, 35)
+    coneLight.setSoftnessLength(200)
+    val knightBody = new KnightBody(body, coneLight)
+    val knightSprite = new KnightSprite(sprite)
+    new KnightEntity(knightBody, knightSprite)
   }
 
   def makeWall(world: World, xPos: Float, yPos: Float, width: Float, height: Float): WallEntity = {

@@ -15,4 +15,5 @@ object EntityTypes {
 
   object PLAYER extends EntityType(getId)
   object WALL extends EntityType(getId)
+  object KNIGHT extends EntityType(getId)
 }

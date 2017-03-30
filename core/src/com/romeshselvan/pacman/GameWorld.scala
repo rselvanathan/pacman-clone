@@ -1,10 +1,10 @@
 package com.romeshselvan.pacman
 
-import box2dLight.{PointLight, RayHandler}
+import box2dLight.{ConeLight, PointLight, PositionalLight, RayHandler}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.{Color, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.maps.MapObject
+import com.badlogic.gdx.maps.{MapObject, MapObjects}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
 import com.badlogic.gdx.math.Vector2
@@ -29,31 +29,38 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
 
   private val debugRenderer = new Box2DDebugRenderer()
 
-//  RayHandler.useDiffuseLight(true)
   private val rayHandler : RayHandler = new RayHandler(world)
-  private val playerPointLight : PointLight = new PointLight(rayHandler, 100)
 
   def init(): Unit = {
+    world.setContactListener(CollisionHandler)
     tileMap = new TmxMapLoader().load("level1.tmx")
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap)
 
     gameObjectProducer.loadWalls(world, tileMap)
 
-    val mapObject = tileMap.getLayers.get("ObjectPositions").getObjects.get("start")
+    val objectPosition : MapObjects = tileMap.getLayers.get("ObjectPositions").getObjects
+    val playerStart = objectPosition.get("start")
 
     entityList += gameObjectProducer.makePacman(world,
-      mapObject.getProperties.get("x", classOf[Float]),
-      mapObject.getProperties.get("y", classOf[Float]),
-      camera, playerPointLight)
+      playerStart.getProperties.get("x", classOf[Float]),
+      playerStart.getProperties.get("y", classOf[Float]),
+      camera)
 
-    world.setContactListener(CollisionHandler)
-
-    rayHandler.setAmbientLight(0, 0, 0, 0.2f)
-    tileMap.getLayers.get("ObjectPositions").getObjects.forEach(mapObject => {
-      if(mapObject.getProperties.get("type", classOf[String]) == "wallLight") {
-        new PointLight(rayHandler, 100, Color.YELLOW, 500, mapObject.getProperties.get("x", classOf[Float]), mapObject.getProperties.get("y", classOf[Float]))
+    objectPosition.forEach(obj => {
+      obj.getProperties.get("type", classOf[String]) match {
+        case "knight" =>
+          entityList += gameObjectProducer.makeKnight(world,
+            obj.getProperties.get("x", classOf[Float]),
+            obj.getProperties.get("y", classOf[Float]),
+          rayHandler)
+        case "wallLight" =>
+          val wallLight = new PointLight(rayHandler, 200, Color.YELLOW, 350, obj.getProperties.get("x", classOf[Float]), obj.getProperties.get("y", classOf[Float]))
+          wallLight.setSoftnessLength(100)
+        case _ =>
       }
     })
+
+    rayHandler.setAmbientLight(0, 0, 0, 0.4f)
   }
 
   def update(delta:Float): Unit = {
@@ -72,7 +79,7 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
 
     rayHandler.setCombinedMatrix(camera)
     rayHandler.updateAndRender()
-    //debugRenderer.render(world, camera.combined)
+    debugRenderer.render(world, camera.combined)
   }
 
   def dispose(): Unit = {
