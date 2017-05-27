@@ -12,10 +12,9 @@ import com.romeshselvan.pacman.inputContexts.GameStates
 /**
   * @author Romesh Selvan
   */
-class PacmanBody(body: Body, camera: OrthographicCamera) extends EntityBody(body, EntityTypes.PLAYER) with InputStateListener {
+class PacmanBody(body: Body, camera: OrthographicCamera) extends EntityBody(body, 120.0f,EntityTypes.PLAYER) with InputStateListener {
 
   private val additiveVelocity : Vector2 = new Vector2(0, 0)
-  private val bodySpeed = 120.0f
 
   override def update(delta: Float): Unit = {
     setVelocity()
@@ -24,19 +23,19 @@ class PacmanBody(body: Body, camera: OrthographicCamera) extends EntityBody(body
 
   override def onStatePressed(state: State): Unit = {
     state match {
-      case GameStates.MOVE_UP => additiveVelocity.y += bodySpeed
-      case GameStates.MOVE_DOWN => additiveVelocity.y += bodySpeed * -1.0f
-      case GameStates.MOVE_LEFT => additiveVelocity.x += bodySpeed * -1.0f
-      case GameStates.MOVE_RIGHT => additiveVelocity.x += bodySpeed
+      case GameStates.MOVE_UP => additiveVelocity.y += maxSpeed
+      case GameStates.MOVE_DOWN => additiveVelocity.y += maxSpeed * -1.0f
+      case GameStates.MOVE_LEFT => additiveVelocity.x += maxSpeed * -1.0f
+      case GameStates.MOVE_RIGHT => additiveVelocity.x += maxSpeed
     }
   }
 
   override def onStateReleased(state: State): Unit = {
     state match {
-      case GameStates.MOVE_UP => additiveVelocity.y += bodySpeed * -1.0f
-      case GameStates.MOVE_DOWN => additiveVelocity.y += bodySpeed
-      case GameStates.MOVE_LEFT => additiveVelocity.x += bodySpeed
-      case GameStates.MOVE_RIGHT => additiveVelocity.x += bodySpeed * -1.0f
+      case GameStates.MOVE_UP => additiveVelocity.y += maxSpeed * -1.0f
+      case GameStates.MOVE_DOWN => additiveVelocity.y += maxSpeed
+      case GameStates.MOVE_LEFT => additiveVelocity.x += maxSpeed
+      case GameStates.MOVE_RIGHT => additiveVelocity.x += maxSpeed * -1.0f
     }
   }
 

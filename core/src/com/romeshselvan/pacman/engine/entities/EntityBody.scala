@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body
 /**
   * @author Romesh Selvan
   */
-abstract class EntityBody(val body : Body, val bodyType : EntityType) {
+abstract class EntityBody(val body : Body, val maxSpeed : Float, val bodyType : EntityType) {
 
   body.setUserData(this)
 

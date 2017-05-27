@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.{Color, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.{BodyDef, FixtureDef, PolygonShape, World}
+import com.romeshselvan.pacman.engine.entities.EntityBody
 import com.romeshselvan.pacman.engine.eventManager.EventManager
 import com.romeshselvan.pacman.engine.input.events.{StatePressedEvent, StateReleasedEvent}
 import com.romeshselvan.pacman.engine.input.listeners.InputStateListener
@@ -19,7 +20,7 @@ import com.romeshselvan.pacman.textures.{CharacterTextures, KnightTextures}
 
 trait GameObjectProducer {
   def makePacman(world: World, xPos: Float, yPos: Float, camera : OrthographicCamera) : PacmanEntity
-  def makeKnight(world: World, xPos: Float, yPos: Float, rayHandler: RayHandler) : KnightEntity
+  def makeKnight(world: World, xPos: Float, yPos: Float, rayHandler: RayHandler, target : EntityBody) : KnightEntity
   def makeWall(world: World, xPos: Float, yPos: Float, width: Float, height: Float) : WallEntity
 
   def loadWalls(world: World, tiledMap: TiledMap) : Unit
@@ -57,7 +58,7 @@ object GameObjectProducer extends GameObjectProducer{
     new PacmanEntity(pacmanBody, pacmanSprite)
   }
 
-  def makeKnight(world: World, xPos: Float, yPos: Float, rayHandler: RayHandler) = {
+  def makeKnight(world: World, xPos: Float, yPos: Float, rayHandler: RayHandler, target : EntityBody) = {
     val bodyDef = new BodyDef
     bodyDef.`type` = BodyDef.BodyType.DynamicBody
     bodyDef.position.set(xPos, yPos)
@@ -79,7 +80,7 @@ object GameObjectProducer extends GameObjectProducer{
 
     val coneLight = new ConeLight(rayHandler, 100, Color.RED, 250, xPos, yPos, 90, 35)
     coneLight.setSoftnessLength(200)
-    val knightBody = new KnightBody(body, coneLight)
+    val knightBody = new KnightBody(body, target, coneLight)
     val knightSprite = new KnightSprite(sprite)
     new KnightEntity(knightBody, knightSprite)
   }

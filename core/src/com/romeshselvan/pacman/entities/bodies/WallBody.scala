@@ -7,7 +7,7 @@ import com.romeshselvan.pacman.entities.EntityTypes
 /**
   * @author Romesh Selvan
   */
-class WallBody(body : Body) extends EntityBody(body, EntityTypes.WALL) {
+class WallBody(body : Body) extends EntityBody(body, 0, EntityTypes.WALL) {
 
   override def update(delta: Float): Unit = {}
 

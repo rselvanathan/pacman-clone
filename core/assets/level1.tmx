@@ -96,7 +96,7 @@
   <object id="44" type="wallLight" x="873.333" y="300" rotation="-0.320085"/>
   <object id="45" type="wallLight" x="665.333" y="45.3334" rotation="-0.320085"/>
   <object id="46" type="wallLight" x="1469.44" y="226.465" width="15.6646" height="23.1579" rotation="-0.320085"/>
-  <object id="47" name="knightOne" type="knight" x="840" y="1478.67"/>
+  <object id="47" name="knightOne" type="knight" x="845.333" y="1468"/>
   <object id="49" name="knightTwo" type="knight" x="340" y="1101.33"/>
   <object id="50" name="knightThree" type="knight" x="604" y="478.667"/>
  </objectgroup>

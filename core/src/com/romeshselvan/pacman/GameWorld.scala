@@ -1,10 +1,10 @@
 package com.romeshselvan.pacman
 
-import box2dLight.{ConeLight, PointLight, PositionalLight, RayHandler}
+import box2dLight.{PointLight, RayHandler}
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.{Color, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.maps.{MapObject, MapObjects}
+import com.badlogic.gdx.graphics.{Color, OrthographicCamera}
+import com.badlogic.gdx.maps.MapObjects
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
 import com.badlogic.gdx.math.Vector2
@@ -41,10 +41,11 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
     val objectPosition : MapObjects = tileMap.getLayers.get("ObjectPositions").getObjects
     val playerStart = objectPosition.get("start")
 
-    entityList += gameObjectProducer.makePacman(world,
+    val player = gameObjectProducer.makePacman(world,
       playerStart.getProperties.get("x", classOf[Float]),
       playerStart.getProperties.get("y", classOf[Float]),
       camera)
+    entityList += player
 
     objectPosition.forEach(obj => {
       obj.getProperties.get("type", classOf[String]) match {
@@ -52,7 +53,7 @@ class GameWorld(gameObjectProducer: GameObjectProducer) {
           entityList += gameObjectProducer.makeKnight(world,
             obj.getProperties.get("x", classOf[Float]),
             obj.getProperties.get("y", classOf[Float]),
-          rayHandler)
+          rayHandler, player.body)
         case "wallLight" =>
           val wallLight = new PointLight(rayHandler, 200, Color.YELLOW, 350, obj.getProperties.get("x", classOf[Float]), obj.getProperties.get("y", classOf[Float]))
           wallLight.setSoftnessLength(100)
